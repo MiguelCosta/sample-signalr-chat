@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Mpc Chat</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h2>Mpc Chat</h2>
+
+    <label for="room">Room:</label>
+    <input type="text" id="room" />
+    <input type="button" id="join" value="join" />
+
+    <br />
+    <label for="message">Message:</label>
+    <input type="text" id="inputMessage" />
+    <input type="button" id="send" value="Send Message" />
+    <input type="button" id="sendprivate" value="Send Private Message" />
+
+    <ul id="messages"></ul>
+
+    <script src="scripts/jquery-2.2.1.js"></script>
+    <script src="scripts/jquery.signalR-2.2.0.js"></script>
+    <script src="signalr/hubs"></script>
+
+    <script type="text/javascript">
+        var chat;
+
+        $(function () {
+            $.connection.hub.logging = true;
+            chat = $.connection.chat;
+
+            chat.client.newMessage = onNewMessage;
+
+            $('#send').click(onSend);
+            $('#join').click(onJoin);
+            $('#sendprivate').click(onSendPrivate);
+
+            $.connection.hub.start({
+                transport: 'longPolling'
+            });
+
+        });
+
+        function onNewMessage(message) {
+            $('#messages').append('<li>' + message + '</li>');
+        };
+
+        function onJoin() {
+            chat.server.joinRoom($('#room').val());
+        };
+
+        function onSend() {
+            var input = $('#inputMessage');
+            var msg = input.val();
+            chat.server.sendMessage(msg);
+            input.val('');
+            input.focus();
+        };
+
+        function onSendPrivate() {
+            var room = $('#room');
+            var input = $('#inputMessage');
+            var msg = input.val();
+            chat.server.sendMessageToRoom(room.val(), msg);
+            input.val('');
+            input.focus();
+        };
+
+        $.connection.hub.error(function (err) {
+            alert("ERROR: " + err);
+        });
+    </script>
+</body>
+</html>

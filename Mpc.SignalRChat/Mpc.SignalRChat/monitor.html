@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+
+    <ul id="messages"></ul>
+
+    <script src="scripts/jquery-2.2.1.js"></script>
+    <script src="scripts/jquery.signalR-2.2.0.js"></script>
+    <script src="signalr/hubs"></script>
+
+    <script type="text/javascript">
+        var monitor;
+
+        $(function () {
+            monitor = $.connection.monitor;
+            monitor.client.newEvent = onNewEvent;
+            $.connection.hub.start();
+        });
+
+        function onNewEvent(eventType, client) {
+            $('#messages').append('<li>' + eventType + ' from ' + client + '</li>');
+        };
+    </script>
+</body>
+</html>
