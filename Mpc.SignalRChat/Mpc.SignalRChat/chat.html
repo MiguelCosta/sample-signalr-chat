@@ -36,9 +36,7 @@
             $('#join').click(onJoin);
             $('#sendprivate').click(onSendPrivate);
 
-            $.connection.hub.start({
-                transport: 'longPolling'
-            });
+            $.connection.hub.start();
 
         });
 

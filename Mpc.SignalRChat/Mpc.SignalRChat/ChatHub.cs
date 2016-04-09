@@ -10,7 +10,7 @@ namespace Mpc.SignalRChat
     {
         public void SendMessage(string message)
         {
-            var msg = $"{Context.ConnectionId}: {message}";
+            var msg = $"[all] [{Context.ConnectionId}] {message}";
             Clients.All.newMessage(msg);
         }
 
@@ -22,7 +22,7 @@ namespace Mpc.SignalRChat
 
         public void SendMessageToRoom(string room, string message)
         {
-            var msg = $"{Context.ConnectionId}: {message}";
+            var msg = $"[{room}] [{Context.ConnectionId}] {message}";
             Clients.Group(room).newMessage(msg);
         }
 
