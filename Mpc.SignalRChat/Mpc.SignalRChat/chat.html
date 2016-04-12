@@ -28,6 +28,7 @@
 
         $(function () {
             $.connection.hub.logging = true;
+            //$.connection.hub.url = "http://localhost:6789/signalr";
             chat = $.connection.chat;
 
             chat.client.newMessage = onNewMessage;
