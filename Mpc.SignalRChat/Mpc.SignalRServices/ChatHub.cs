@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
-using Mpc.SignalRChat.ChatModels;
+using Mpc.SignalRServices.ChatModels;
 using System.Threading.Tasks;
 
-namespace Mpc.SignalRChat
+namespace Mpc.SignalRServices
 {
     [HubName("chat")]
     public class ChatHub : Hub

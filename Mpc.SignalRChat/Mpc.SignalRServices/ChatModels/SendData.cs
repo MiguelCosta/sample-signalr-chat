@@ -1,4 +1,4 @@
-﻿namespace Mpc.SignalRChat.ChatModels
+﻿namespace Mpc.SignalRServices.ChatModels
 {
     public class SendData
     {
